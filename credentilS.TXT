@@ -1,0 +1,44 @@
+
+
+Queries:
+
+select
+where :- and,or,in like etc.
+order by
+limit
+group by etc
+
+
+
+2. TO insert specific field data 
+
+Model.create({name: "Jaydip", email:"jaydipQ@gmail.com",gender:"Male"},{
+    fields:['email','gender']
+})
+
+
+3.validation and constraints
+
+1) sql level constraints
+2) sequelize level-validations
+
+
+4.relationship
+    1) one to one relationship
+    2) one to many relationship
+    3) many to many relationship
+
+
+    The hasone Association
+    The BelongsTo Association
+    The HasMany Association
+    The BelongsToMany Associaation
+
+
+
+
+Polymorphic Associatios
+ 
+ 1) one to many
+
+ 2) Many to many
