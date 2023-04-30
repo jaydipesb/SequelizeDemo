@@ -41,4 +41,32 @@ Polymorphic Associatios
  
  1) one to many
 
+Table
+
+1) video
+2) comment
+3) image
+
  2) Many to many
+
+ 1) image
+ 2) video
+
+ 3) Tag
+ 4) Tag_Taggable
+
+ image:- tag 1,2,3,4
+  
+ video:- tag 1,2,3
+
+ Tag:- ---video, image
+
+
+ Tag_Taggable
+
+
+
+
+
+ Lazy Loading
+ Eager Loading
