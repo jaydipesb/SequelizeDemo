@@ -107,64 +107,64 @@ db.comment.belongsTo(db.video, {
 });
 
 //polymorphic many to many relationship
-db.tag_taggable = require("./tag_taggables")(sequelize, Sequelize.DataTypes);
+// db.tag_taggable = require("./tag_taggables")(sequelize, Sequelize.DataTypes);
 
-//image to tag relation polymorphic many to many
-db.image.belongsToMany(db.tags, {
-    through: {
-        model: db.tag_taggable,
-        unique: false,
-        scope: {
-            taggableType: "image",
-        },
-    },
-    foreignKey: "taggableId",
-    constraints: false,
-});
+// //image to tag relation polymorphic many to many
+// db.image.belongsToMany(db.tags, {
+//     through: {
+//         model: db.tag_taggable,
+//         unique: false,
+//         scope: {
+//             taggableType: "image",
+//         },
+//     },
+//     foreignKey: "taggableId",
+//     constraints: false,
+// });
 
-//tag to image many to many polymorphic relationship
+// //tag to image many to many polymorphic relationship
 
-db.tags.belongsToMany(db.image, {
-    through: {
-        model: db.tag_taggable,
-        unique: false,
-        scope: {
-            taggableType: "image",
-        },
-    },
-    foreignKey: "tagId",
-    constraints: false,
-});
-
-
-
-//video to tag
-db.video.belongsToMany(db.tags, {
-    through: {
-        model: db.tag_taggable,
-        unique: false,
-        scope: {
-            taggableType: "video",
-        },
-    },
-    foreignKey: "taggableId",
-    constraints: false,
-});
+// db.tags.belongsToMany(db.image, {
+//     through: {
+//         model: db.tag_taggable,
+//         unique: false,
+//         scope: {
+//             taggableType: "image",
+//         },
+//     },
+//     foreignKey: "tagId",
+//     constraints: false,
+// });
 
 
-//tag to video
 
-db.tags.belongsToMany(db.video, {
-    through: {
-        model: db.tag_taggable,
-        unique: false,
-        scope: {
-            taggableType: "video",
-        },
-    },
-    foreignKey: "tagId",
-    constraints: false,
-});
+// //video to tag
+// db.video.belongsToMany(db.tags, {
+//     through: {
+//         model: db.tag_taggable,
+//         unique: false,
+//         scope: {
+//             taggableType: "video",
+//         },
+//     },
+//     foreignKey: "taggableId",
+//     constraints: false,
+// });
+
+
+// //tag to video
+
+// db.tags.belongsToMany(db.video, {
+//     through: {
+//         model: db.tag_taggable,
+//         unique: false,
+//         scope: {
+//             taggableType: "video",
+//         },
+//     },
+//     foreignKey: "tagId",
+//     constraints: false,
+// });
 
 
 

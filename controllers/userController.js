@@ -1,8 +1,8 @@
 const employee = require("../models/employee");
 const event = require("../models/event");
 const db = require("../models/index");
-const { Sequelize, Op, QueryTypes, Model } = require("sequelize");
-// const { sequelize } = require("sequelize");
+const { Sequelize, Op, QueryTypes, Model, DataTypes } = require("sequelize");
+const { sequelize } = require("sequelize");
 const Users = db.Users;
 const Posts = db.Posts;
 
@@ -12,6 +12,8 @@ const Employee = db.employee;
 const Image = db.image;
 const Video = db.video;
 const Comment = db.comment;
+
+// const queryInferface = sequelize.getQueryInterface();
 
 //1.create user
 const addUser = async(req, res) => {
@@ -68,20 +70,18 @@ const addUser = async(req, res) => {
         //   },
         //   { include: [{ model: Tags, as: "tagsDetail" }] }
         // );
-
-
-        //   searching query
-        //   let name = req.body.name;
-        //  let user = await Users.findAll({
-        //   where: {
-        //     name: {
-        //       [Op.like]: `${name}`
-        //     }
-        //   }
-        //  });
-
-
-
+    
+        //Hooks example
+        // let user = await Users.create({
+        //     name: req.body.name,
+        //     email: req.body.email,
+        //     gender: req.body.gender,
+        // });
+       
+        // let user = await Image.create({
+        //     title:req.body.title,
+        //     url: req.body.url
+        // })
 
         res.status(200).send(user);
     } catch (error) {

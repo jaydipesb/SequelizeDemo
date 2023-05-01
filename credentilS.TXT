@@ -65,8 +65,15 @@ Table
  Tag_Taggable
 
 
-
-
-
  Lazy Loading
  Eager Loading
+
+
+ :Hooks in sequelize
+ 
+ before create
+ after create
+ before validate
+ after validate
+ before delete
+ after delete
