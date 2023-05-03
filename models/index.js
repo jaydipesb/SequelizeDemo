@@ -75,8 +75,9 @@ db.Posts.belongsTo(db.Users, { foreignKey: "user_id", as: "userdetails" });
 // db.event.belongsToMany(db.tags, { through: "Event_tags" , as:"tagsDetail"});
 // db.tags.belongsToMany(db.event, { through: "Event_tags" ,as: 'eventDetail'});
 
-//polymorphic one to many associations
 
+
+//polymorphic one to many associations
 db.image = require("./image")(sequelize, Sequelize.DataTypes);
 db.video = require("./video")(sequelize, Sequelize.DataTypes);
 db.comment = require("./comments")(sequelize, Sequelize.DataTypes);
@@ -165,10 +166,6 @@ db.comment.belongsTo(db.video, {
 //     foreignKey: "tagId",
 //     constraints: false,
 // });
-
-
-
-
 
 
 

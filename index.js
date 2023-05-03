@@ -1,18 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
 
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.json({ message: "hello from" });
-});
 
 //routers
-const router = require("./routes/userRoutes");
+const router = require("./routes/UserRoutes");
 app.use("/users", router);
 
 //port

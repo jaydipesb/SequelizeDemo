@@ -1,4 +1,4 @@
-const userController = require("../controllers/userController.js");
+const userController = require("../controllers/UserController.js");
 
 const router = require("express").Router();
 
@@ -14,12 +14,7 @@ router.delete("/:id", userController.deleteUser);
 
 router.get("/rawquery", userController.rawQuery);
 
-router.get("/onetoone", userController.onetoone);
-
 router.get("/pagination/:id", userController.pagination);
 
-router.delete("/employee/:id", userController.deleteEmployee);
-
-router.get("/search", userController.Searching);
 
 module.exports = router;
