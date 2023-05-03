@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const { use, options } = require("../routes/userRoutes");
+
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
-        // defaultValue: 'test@gmail.com',
         allowNull: false,
         unique: true,
       },

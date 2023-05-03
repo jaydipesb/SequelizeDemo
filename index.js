@@ -10,6 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 const router = require("./routes/UserRoutes");
 app.use("/users", router);
 
+
+
 //port
 const PORT = process.env.PORT | 8000;
   

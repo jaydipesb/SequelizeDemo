@@ -16,5 +16,4 @@ router.get("/rawquery", userController.rawQuery);
 
 router.get("/pagination/:id", userController.pagination);
 
-
 module.exports = router;

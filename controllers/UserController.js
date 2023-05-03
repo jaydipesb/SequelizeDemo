@@ -1,8 +1,7 @@
-// const employee = require("../models/employee");
-// const event = require("../models/event");
 const db = require("../models/index");
 const { Sequelize, Op, QueryTypes, Model, DataTypes } = require("sequelize");
-const { sequelize } = require("sequelize");
+// const { sequelize } = require("sequelize");
+const sequelize = require("../models/index");
 
 const Users = db.Users;
 const Posts = db.Posts;
@@ -16,16 +15,22 @@ const Comment = db.comment;
 //1.create user
 const addUser = async (req, res) => {
   try {
-    //add user
-    // let info = {
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     gender: req.body.gender,
-    // };
-    // const user = await Users.create(info);
-    // res.status(200).send(user);
+    // add user
+    let info = {
+      name: req.body.name,
+      email: req.body.email,
+      gender: req.body.gender,
+    };
+    const user = await Users.create(info)
+      .then(() => {
+        console.log("user created  succesfully");
+      })
+      .catch((error) => {
+        console.log("error while createting user", error);
+      });
+    res.status(200).send(user);
 
-    // console.log(user);
+    console.log(user);
 
     //add one to one relationship data
     // const user = await Users.create(
@@ -44,7 +49,12 @@ const addUser = async (req, res) => {
     //   {
     //     include: [{ model: Posts, as: "posdetails" }],
     //   }
-    // );
+    // ). .then(() => {
+    //   console.log("user created  succesfully");
+    // })
+    // .catch((error) => {
+    //   console.log("error while createting user", error);
+    // });
 
     // Add one to many realtionship data
     // let postDetail = req.body.post;
@@ -56,7 +66,12 @@ const addUser = async (req, res) => {
     //     posdetails: [...postDetail],
     //   },
     //   { include: [{ model: Posts, as: "posdetails" }] }
-    // );
+    // ) .then(() => {
+    //   console.log("user created  succesfully");
+    // })
+    // .catch((error) => {
+    //   console.log("error while createting user", error);
+    // });
 
     // add many to many relationship data
     // let postDetail = req.body.tags;
@@ -69,18 +84,24 @@ const addUser = async (req, res) => {
     //   { include: [{ model: Tags, as: "tagsDetail" }] }
     // );
 
+    //Add polymorphic one to many
+    // const user = await Image.create(
+    //   {
+    //     title: req.body.title,
+    //     url: req.body.url,
+    //     commentDetails: {
+    //       title: req.body.tit,
+    //     },
+    //   },
+    //   { include: [{ model: Comment, as: "commentDetails" }] }
+    // );
+
     //Hooks example
     // let user = await Users.create({
     //     name: req.body.name,
     //     email: req.body.email,
     //     gender: req.body.gender,
     // });
-
-    // let user = await Image.create({
-    //     title:req.body.title,
-    //     url: req.body.url
-    // })
-
     res.status(200).send(user);
   } catch (error) {
     console.log(error);
@@ -97,6 +118,12 @@ const getAllUsers = async (req, res) => {
     //         //  [Sequelize.fn('count', Sequelize.col('email')), 'emailCount']
     //         [Sequelize.fn('CONCAT', Sequelize.col('email'), 'test'), 'emailCount']
     //     ]
+    // })
+    // .then(() => {
+    //   console.log("user fetch succesfully");
+    // })
+    // .catch((error) => {
+    //   console.log("error while fetching user", error);
     // });
 
     //include-exclude in query
@@ -120,8 +147,7 @@ const getAllUsers = async (req, res) => {
     //             [Op.gt]: 2,
     //         },
     //         // email: {
-    //         //     [Op.eq]: 'jaydip@gmail.com'
-    //         //         // [Op.like]: '%@gmail.com%'
+    //         //     [Op.like]: '%@gmail.com%'
     //         // }
     //     },
     //     order: [
@@ -305,32 +331,32 @@ const updateUser = async (req, res) => {
   // }
 
   try {
-    //one to many relationship data update
-    // let id = req.params.id;
-    // const user = await Users.update(
-    //   {
-    //     name: req.body.name,
-    //   },
-    //   {
-    //     where: { id: id },
-    //   }
-    // );
-    // let postDetail = req.body.post;
-    // let postId = [...postDetail];
-    // console.log(postId[0].id);
-    // if (user) {
-    //   for (i = 0; i < postId.length; i++) {
-    //     await Posts.update(
-    //       {
-    //        title: postId[i].title,
-    //        description:postId[i].description
-    //       },
-    //       {
-    //         where: { user_id: id, id: postId[i].id },
-    //       }
-    //     );
-    //   }
-    // }
+    // one to many relationship data update
+    let id = req.params.id;
+    const user = await Users.update(
+      {
+        name: req.body.name,
+      },
+      {
+        where: { id: id },
+      }
+    );
+    let postDetail = req.body.post;
+    let postId = [...postDetail];
+    console.log(postId[0].id);
+    if (user) {
+      for (i = 0; i < postId.length; i++) {
+        await Posts.update(
+          {
+            title: postId[i].title,
+            description: postId[i].description,
+          },
+          {
+            where: { user_id: id, id: postId[i].id },
+          }
+        );
+      }
+    }
 
     res.status(200).send(user);
   } catch (error) {
@@ -342,7 +368,24 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     let id = req.params.id;
-    const user = await Users.destroy({ where: { id: id } });
+    const user = await Users.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then(() => {
+        console.log("user deleted succesfully");
+      })
+      .catch((error) => {
+        console.log("error while deleting user", error);
+      });
+
+    await Posts.destroy({
+      where: {
+        id: id,
+      },
+    });
+
     res.status(200).send("user deleted succesfully");
   } catch (error) {
     console.log(error);
