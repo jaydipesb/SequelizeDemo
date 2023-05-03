@@ -368,23 +368,32 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     let id = req.params.id;
-    const user = await Users.destroy({
+    const userData = await Users.findOne({
       where: {
-        id: id,
-      },
-    })
-      .then(() => {
-        console.log("user deleted succesfully");
-      })
-      .catch((error) => {
-        console.log("error while deleting user", error);
-      });
-
-    await Posts.destroy({
-      where: {
-        id: id,
+        id,
+        id,
       },
     });
+
+    if (userData) {
+      const user = await Users.destroy({
+        where: {
+          id: id,
+        },
+      })
+        .then(() => {
+          console.log("user deleted succesfully");
+        })
+        .catch((error) => {
+          console.log("error while deleting user", error);
+        });
+
+      await Posts.destroy({
+        where: {
+          id: id,
+        },
+      });
+    }
 
     res.status(200).send("user deleted succesfully");
   } catch (error) {
