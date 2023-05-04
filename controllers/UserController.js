@@ -1,7 +1,7 @@
 const db = require("../models/index");
 const { Sequelize, Op, QueryTypes, Model, DataTypes } = require("sequelize");
 // const { sequelize } = require("sequelize");
-const sequelize = require("../models/index");
+// const sequelize = require("../models/index");
 
 const Users = db.Users;
 const Posts = db.Posts;
@@ -11,9 +11,13 @@ const Employee = db.employee;
 const Image = db.image;
 const Video = db.video;
 const Comment = db.comment;
+const sequelize = db.sequelize;
+
 
 //1.create user
 const addUser = async (req, res) => {
+  const t = await sequelize.transaction();
+
   try {
     // add user
     let info = {
@@ -21,7 +25,7 @@ const addUser = async (req, res) => {
       email: req.body.email,
       gender: req.body.gender,
     };
-    const user = await Users.create(info)
+    const user = await Users.create(info, { transaction: t })
       .then(() => {
         console.log("user created  succesfully");
       })
@@ -30,7 +34,7 @@ const addUser = async (req, res) => {
       });
     res.status(200).send(user);
 
-    console.log(user);
+    // console.log(user);
 
     //add one to one relationship data
     // const user = await Users.create(
@@ -47,9 +51,10 @@ const addUser = async (req, res) => {
     //     ],
     //   },
     //   {
-    //     include: [{ model: Posts, as: "posdetails" }],
+    //     include: [{ model: Posts, as: "postdetails" }],
     //   }
-    // ). .then(() => {
+    // );
+    // .then(() => {
     //   console.log("user created  succesfully");
     // })
     // .catch((error) => {
@@ -102,9 +107,12 @@ const addUser = async (req, res) => {
     //     email: req.body.email,
     //     gender: req.body.gender,
     // });
-    res.status(200).send(user);
+    // res.status(200).send(user);
+    await t.commit();
+    // });
   } catch (error) {
     console.log(error);
+    await t.rollback();
   }
 };
 
