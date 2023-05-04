@@ -1,7 +1,6 @@
-const db = require("../models/index");
+const db = require("../models/Index");
 const { Sequelize, Op, QueryTypes, Model, DataTypes } = require("sequelize");
-// const { sequelize } = require("sequelize");
-// const sequelize = require("../models/index");
+ 
 
 const Users = db.Users;
 const Posts = db.Posts;
@@ -12,7 +11,6 @@ const Image = db.image;
 const Video = db.video;
 const Comment = db.comment;
 const sequelize = db.sequelize;
-
 
 //1.create user
 const addUser = async (req, res) => {
@@ -317,6 +315,8 @@ const updateUser = async (req, res) => {
   //   const user = await Users.update(
   //     {
   //       name: req.body.name,
+  //       email: req.body.email,
+  //       gender: req.body.gender
   //     },
   //     {
   //       where: { id: id },

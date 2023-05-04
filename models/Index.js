@@ -44,18 +44,19 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-db.Users = require("./users")(sequelize, Sequelize.DataTypes);
-db.Posts = require("./post")(sequelize, Sequelize.DataTypes);
-db.tags = require("./tags")(sequelize, Sequelize.DataTypes);
-db.event = require("./event")(sequelize, Sequelize.DataTypes);
-db.employee = require("./employee")(sequelize, Sequelize.DataTypes);
-db.Event_tags = require("./event_tags")(sequelize, Sequelize.DataTypes);
+db.Users = require("./Users")(sequelize, Sequelize.DataTypes);
+db.Posts = require("./Post")(sequelize, Sequelize.DataTypes);
+db.tags = require("./Tags")(sequelize, Sequelize.DataTypes);
+db.event = require("./Event")(sequelize, Sequelize.DataTypes);
+db.employee = require("./Employee")(sequelize, Sequelize.DataTypes);
+db.Event_tags = require("./Event_Tags")(sequelize, Sequelize.DataTypes);
 
 // db.Users.addScope("chechStatus", {
 //   where: {
 //     status: 1,
 //   },
 // });
+
 
 //one to one relationship example
 db.Users.hasOne(db.Posts, { foreignKey: "user_id", as: "postdetails" });
@@ -76,9 +77,9 @@ db.Posts.belongsTo(db.Users, { foreignKey: "user_id", as: "userdetails" });
 // db.tags.belongsToMany(db.event, { through: "Event_tags" ,as: 'eventDetail'});
 
 //polymorphic one to many associations
-db.image = require("./image")(sequelize, Sequelize.DataTypes);
-db.video = require("./video")(sequelize, Sequelize.DataTypes);
-db.comment = require("./comments")(sequelize, Sequelize.DataTypes);
+db.image = require("./Image")(sequelize, Sequelize.DataTypes);
+db.video = require("./Video")(sequelize, Sequelize.DataTypes);
+db.comment = require("./Comments")(sequelize, Sequelize.DataTypes);
 
 db.image.hasMany(db.comment, {
   foreignKey: "commenttableId",
