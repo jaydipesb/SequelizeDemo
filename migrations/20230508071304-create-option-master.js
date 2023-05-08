@@ -2,20 +2,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('tag_taggables', {
+    await queryInterface.createTable('Option_Masters', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      tagId: {
+      sid: {
         type: Sequelize.INTEGER
       },
-      taggableId: {
-        type: Sequelize.INTEGER
+      o_name: {
+        type: Sequelize.STRING
       },
-      taggableType: {
+      o_value: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -23,12 +23,18 @@ module.exports = {
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: null,
+      },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: null,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('tag_taggables');
+    await queryInterface.dropTable('Option_Masters');
   }
 };
